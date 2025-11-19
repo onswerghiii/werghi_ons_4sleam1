@@ -1,25 +1,21 @@
 pipeline {
     agent any
 
-    tools {
-        // EXACTEMENT le nom défini dans Global Tool Configuration
-        maven 'M2_HOME'
-    }
-
     stages {
-        stage('Build & Package') {
+        stage('Build') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                echo 'Building..'
             }
         }
-    }
-
-    post {
-        success {
-            echo '✅ Build réussi (tests ignorés).'
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
         }
-        failure {
-            echo '❌ Build cassé, va voir les logs.'
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
         }
     }
 }
